@@ -50,13 +50,13 @@ bash ./scripts/render_pile_lab_blender.sh \
 
 ## Documentation
 
-- [Docs Index](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/docs/README.md)
-- [Current Status](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/docs/CURRENT_STATUS.md)
-- [Roadmap](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/docs/ROADMAP.md)
-- [References](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/references/README.md)
-- [AI Disclosure](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/AI_DISCLOSURE.md)
+- [Docs Index](docs/README.md)
+- [Current Status](docs/CURRENT_STATUS.md)
+- [Roadmap](docs/ROADMAP.md)
+- [References](references/README.md)
+- [AI Disclosure](AI_DISCLOSURE.md)
 
 ## Current Example Output
 
-- [Paper-like pile render](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/outputs/pile_lab_dense_check_v2/pile_lab_paper_like_v1.mp4)
-- [Last frame](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/outputs/pile_lab_dense_check_v2/pile_lab_paper_like_v1_last.png)
+- [Paper-like pile render](outputs/pile_lab_dense_check_v2/pile_lab_paper_like_v1.mp4)
+- [Last frame](outputs/pile_lab_dense_check_v2/pile_lab_paper_like_v1_last.png)

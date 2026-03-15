@@ -28,11 +28,11 @@
 
 核心代码：
 
-- [simulation.hpp](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/include/klar2016/core/simulation.hpp)
-- [simulation.cpp](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/src/core/simulation.cpp)
-- [simulation_config.hpp](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/include/klar2016/core/simulation_config.hpp)
-- [simulation_config.cpp](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/src/core/simulation_config.cpp)
-- [kernel.hpp](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/include/klar2016/core/kernel.hpp)
+- [simulation.hpp](../include/klar2016/core/simulation.hpp)
+- [simulation.cpp](../src/core/simulation.cpp)
+- [simulation_config.hpp](../include/klar2016/core/simulation_config.hpp)
+- [simulation_config.cpp](../src/core/simulation_config.cpp)
+- [kernel.hpp](../include/klar2016/core/kernel.hpp)
 
 当前求解器的实现结构：
 
@@ -62,7 +62,7 @@
   - `HourglassShellConfig`
   - `CylinderShellConfig`
 - CLI：
-  [main.cpp](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/src/main.cpp)
+  [main.cpp](../src/main.cpp)
   支持 `--scene`、`--steps`、`--export`、`--output-dir`、
   `--friction-angle`、`--sweep-friction-angles`。
 
@@ -75,9 +75,9 @@
 对照资料：
 
 - 主论文：
-  [MinerU_html_KGPSJT16_2032719086785196032.html](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/references/MinerU_html_KGPSJT16_2032719086785196032.html)
+  [MinerU_html_KGPSJT16_2032719086785196032.html](../references/MinerU_html_KGPSJT16_2032719086785196032.html)
 - 补充技术文档：
-  [MinerU_html_tech-doc_2032868345404772352.html](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/references/MinerU_html_tech-doc_2032868345404772352.html)
+  [MinerU_html_tech-doc_2032868345404772352.html](../references/MinerU_html_tech-doc_2032868345404772352.html)
 
 当前未实现部分及其影响如下。
 
@@ -86,7 +86,7 @@
 主论文 `5.6 Implicit velocity update` 和技术文档 `Algorithm 2 Implicit solve`
 都给出了 Newton、GMRES、`HESSIAN_TIMES` 这套流程。
 当前代码仍然固定在显式路线：
-[simulation_config.hpp](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/include/klar2016/core/simulation_config.hpp#L32)。
+[simulation_config.hpp](../include/klar2016/core/simulation_config.hpp#L32)。
 
 具体影响：
 
@@ -99,10 +99,10 @@
 
 - 主论文里 `Hourglass` 标为 `Explicit`，
   `Pile from spout` 标为 `Implicit`：
-  [MinerU_html_KGPSJT16_2032719086785196032.html#L1679](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/references/MinerU_html_KGPSJT16_2032719086785196032.html#L1679)
-  [MinerU_html_KGPSJT16_2032719086785196032.html#L1744](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/references/MinerU_html_KGPSJT16_2032719086785196032.html#L1744)
+  [MinerU_html_KGPSJT16_2032719086785196032.html#L1679](../references/MinerU_html_KGPSJT16_2032719086785196032.html#L1679)
+  [MinerU_html_KGPSJT16_2032719086785196032.html#L1744](../references/MinerU_html_KGPSJT16_2032719086785196032.html#L1744)
 - 技术文档的 `Algorithm 2 Implicit solve`：
-  [MinerU_html_tech-doc_2032868345404772352.html#L362](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/references/MinerU_html_tech-doc_2032868345404772352.html#L362)
+  [MinerU_html_tech-doc_2032868345404772352.html#L362](../references/MinerU_html_tech-doc_2032868345404772352.html#L362)
 
 #### B. 碰撞/摩擦模型未完全对齐：中高影响
 
@@ -110,8 +110,8 @@
 并在隐式流程中记录碰撞集合后再施加约束。
 当前实现使用的是统一的单边约束 + 摩擦投影，
 主要代码在：
-[simulation.cpp](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/src/core/simulation.cpp#L326)
-[simulation.cpp](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/src/core/simulation.cpp#L344)
+[simulation.cpp](../src/core/simulation.cpp#L326)
+[simulation.cpp](../src/core/simulation.cpp#L344)
 
 具体影响：
 
@@ -124,8 +124,8 @@
 
 主论文 `5.7 Initialization` 明确写了 `Poisson disk sampling`。
 当前工程主要使用规则采样、盒状 seed 和圆柱分层采样：
-[simulation.cpp](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/src/core/simulation.cpp#L685)
-[simulation.cpp](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/src/core/simulation.cpp#L813)
+[simulation.cpp](../src/core/simulation.cpp#L685)
+[simulation.cpp](../src/core/simulation.cpp#L813)
 
 具体影响：
 
@@ -137,7 +137,7 @@
 相关论文证据：
 
 - 主论文初始化部分：
-  [MinerU_html_KGPSJT16_2032719086785196032.html#L1115](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/references/MinerU_html_KGPSJT16_2032719086785196032.html#L1115)
+  [MinerU_html_KGPSJT16_2032719086785196032.html#L1115](../references/MinerU_html_KGPSJT16_2032719086785196032.html#L1115)
 
 #### D. 隐式导数链未实现：当前显式结果直接影响小，但对补齐论文实现影响大
 
@@ -206,31 +206,31 @@
 
 当前已经整理好的案例配置：
 
-- [box_case.json](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/scenes/box_case.json)
-- [hourglass.json](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/scenes/hourglass.json)
-- [friction_angle.json](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/scenes/friction_angle.json)
-- [pile_from_spout.json](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/scenes/pile_from_spout.json)
-- [pile_lab.json](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/scenes/pile_lab.json)
+- [box_case.json](../scenes/box_case.json)
+- [hourglass.json](../scenes/hourglass.json)
+- [friction_angle.json](../scenes/friction_angle.json)
+- [pile_from_spout.json](../scenes/pile_from_spout.json)
+- [pile_lab.json](../scenes/pile_lab.json)
 
 和当前论文式堆积案例最相关的文件：
 
 - 场景配置：
-  [pile_lab.json](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/scenes/pile_lab.json)
+  [pile_lab.json](../scenes/pile_lab.json)
 - 仿真脚本：
-  [run_pile_lab_case.sh](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/scripts/run_pile_lab_case.sh)
+  [run_pile_lab_case.sh](../scripts/run_pile_lab_case.sh)
 - Blender 最终渲染脚本：
-  [render_pile_lab_blender.sh](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/scripts/render_pile_lab_blender.sh)
+  [render_pile_lab_blender.sh](../scripts/render_pile_lab_blender.sh)
 - matplotlib 预览渲染：
-  [render_ply_sequence.py](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/tools/render_ply_sequence.py)
+  [render_ply_sequence.py](../tools/render_ply_sequence.py)
 - Blender 渲染主逻辑：
-  [render_ply_sequence_blender.py](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/tools/render_ply_sequence_blender.py)
+  [render_ply_sequence_blender.py](../tools/render_ply_sequence_blender.py)
 
 当前已生成、可直接查看的论文风格颗粒渲染结果：
 
 - 视频：
-  [pile_lab_paper_like_v1.mp4](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/outputs/pile_lab_dense_check_v2/pile_lab_paper_like_v1.mp4)
+  [pile_lab_paper_like_v1.mp4](../outputs/pile_lab_dense_check_v2/pile_lab_paper_like_v1.mp4)
 - 末帧：
-  [pile_lab_paper_like_v1_last.png](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/outputs/pile_lab_dense_check_v2/pile_lab_paper_like_v1_last.png)
+  [pile_lab_paper_like_v1_last.png](../outputs/pile_lab_dense_check_v2/pile_lab_paper_like_v1_last.png)
 
 ## 5. Build and Run
 
@@ -248,7 +248,7 @@ cmake --version
 
 脚本：
 
-- [build.sh](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/build.sh)
+- [build.sh](../build.sh)
 
 参数说明：
 
@@ -292,7 +292,7 @@ cmake --build --preset=conan-release
 
 二进制入口：
 
-- [main.cpp](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/src/main.cpp)
+- [main.cpp](../src/main.cpp)
 
 当前常用 CLI 参数：
 
@@ -356,7 +356,7 @@ bash ./scripts/run_pile_lab_case.sh release 2400 outputs/pile_lab_case 50
 
 脚本：
 
-- [run_pile_lab_case.sh](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/scripts/run_pile_lab_case.sh)
+- [run_pile_lab_case.sh](../scripts/run_pile_lab_case.sh)
 
 参数说明：
 
@@ -488,7 +488,7 @@ bash ./scripts/render_pile_lab_blender.sh \
 
 脚本：
 
-- [render_pile_lab_blender.sh](/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/scripts/render_pile_lab_blender.sh)
+- [render_pile_lab_blender.sh](../scripts/render_pile_lab_blender.sh)
 
 参数说明：
 
