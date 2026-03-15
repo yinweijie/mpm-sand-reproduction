@@ -227,6 +227,8 @@
 
 当前已生成、可直接查看的论文风格颗粒渲染结果：
 
+- GIF 预览：
+  [pile_lab_paper_like_v1.gif](../outputs/pile_lab_dense_check_v2/pile_lab_paper_like_v1.gif)
 - 视频：
   [pile_lab_paper_like_v1.mp4](../outputs/pile_lab_dense_check_v2/pile_lab_paper_like_v1.mp4)
 - 末帧：

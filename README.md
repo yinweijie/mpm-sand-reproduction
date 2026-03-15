@@ -58,5 +58,8 @@ bash ./scripts/render_pile_lab_blender.sh \
 
 ## Current Example Output
 
-- [Paper-like pile render](outputs/pile_lab_dense_check_v2/pile_lab_paper_like_v1.mp4)
+[![Paper-like pile render preview](outputs/pile_lab_dense_check_v2/pile_lab_paper_like_v1.gif)](outputs/pile_lab_dense_check_v2/pile_lab_paper_like_v1.mp4)
+
+- [Preview GIF](outputs/pile_lab_dense_check_v2/pile_lab_paper_like_v1.gif)
+- [Paper-like pile render (MP4)](outputs/pile_lab_dense_check_v2/pile_lab_paper_like_v1.mp4)
 - [Last frame](outputs/pile_lab_dense_check_v2/pile_lab_paper_like_v1_last.png)
