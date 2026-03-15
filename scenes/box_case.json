@@ -1,0 +1,38 @@
+{
+  "scene": {
+    "name": "box_case",
+    "domain_min": [0.0, 0.0, 0.0],
+    "domain_max": [0.30, 0.24, 0.30],
+    "gravity": [0.0, -9.81, 0.0],
+    "domain_boundary_friction_coefficient": 0.55,
+    "seed_box_min": [0.09, 0.12, 0.09],
+    "seed_box_max": [0.21, 0.22, 0.21],
+    "seed_particles": 12000,
+    "duration": 1.5,
+    "frame_stride": 4,
+    "preview_steps": 400
+  },
+  "material": {
+    "density": 2200.0,
+    "youngs_modulus": 353700.0,
+    "poisson_ratio": 0.3,
+    "friction_angle_degrees": 32.0,
+    "hardening_h0": 35.0,
+    "hardening_h1": 0.0,
+    "hardening_h2": 0.0,
+    "hardening_h3": 0.0
+  },
+  "solver": {
+    "dx": 0.0025,
+    "dt_max": 0.0001,
+    "cfl": 1.0,
+    "particles_per_cell": 16,
+    "explicit_only": true
+  },
+  "export": {
+    "export_ply": false,
+    "output_directory": "outputs",
+    "interval_steps": 4,
+    "export_initial_frame": true
+  }
+}

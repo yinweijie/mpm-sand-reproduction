@@ -1,0 +1,54 @@
+{
+  "scene": {
+    "name": "hourglass",
+    "domain_min": [0.0, 0.0, 0.0],
+    "domain_max": [0.4, 0.9, 0.4],
+    "gravity": [0.0, -9.81, 0.0],
+    "domain_boundary_friction_coefficient": 0.35,
+    "seed_box_min": [0.1800, 0.61, 0.1800],
+    "seed_box_max": [0.2200, 0.69, 0.2200],
+    "seed_from_particles_per_cell": true,
+    "seed_jitter": 0.15,
+    "seed_particles": 0,
+    "duration": 3.0,
+    "frame_stride": 32,
+    "preview_steps": 3000,
+    "hourglass_shell": {
+      "enabled": true,
+      "waist_center": [0.20, 0.47, 0.20],
+      "top_y": 0.82,
+      "bottom_y": 0.10,
+      "neck_half_width": 0.018,
+      "top_half_width": 0.12,
+      "bottom_half_width": 0.10,
+      "upper_friction_coefficient": 0.58,
+      "lower_friction_coefficient": 0.78,
+      "add_bottom_cap": true,
+      "bottom_cap_friction_coefficient": 0.95
+    },
+    "colliders": []
+  },
+  "material": {
+    "density": 2200.0,
+    "youngs_modulus": 353700.0,
+    "poisson_ratio": 0.3,
+    "friction_angle_degrees": 45.0,
+    "hardening_h0": 35.0,
+    "hardening_h1": 9.0,
+    "hardening_h2": 0.3,
+    "hardening_h3": 10.0
+  },
+  "solver": {
+    "dx": 0.0025,
+    "dt_max": 0.0002,
+    "cfl": 1.0,
+    "particles_per_cell": 8,
+    "explicit_only": true
+  },
+  "export": {
+    "export_ply": false,
+    "output_directory": "outputs",
+    "interval_steps": 32,
+    "export_initial_frame": true
+  }
+}

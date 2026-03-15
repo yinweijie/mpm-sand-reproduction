@@ -1,0 +1,72 @@
+{
+  "scene": {
+    "name": "pile_lab",
+    "domain_min": [0.0, 0.0, 0.0],
+    "domain_max": [0.30, 0.20, 0.30],
+    "gravity": [0.0, -9.81, 0.0],
+    "domain_boundary_friction_coefficient": 0.85,
+    "seed_box_min": [0.145, 0.12, 0.145],
+    "seed_box_max": [0.155, 0.14, 0.155],
+    "seed_particles": 0,
+    "duration": 3.0,
+    "frame_stride": 16,
+    "preview_steps": 2400,
+    "cylinder_shells": [
+      {
+        "enabled": true,
+        "center": [0.15, 0.0, 0.15],
+        "radius": 0.0055,
+        "y_min": 0.050,
+        "y_max": 0.095,
+        "friction_coefficient": 0.12,
+        "segments": 24
+      }
+    ],
+    "colliders": [
+      {
+        "point": [0.0, 0.0, 0.0],
+        "normal": [0.0, 1.0, 0.0],
+        "friction_coefficient": 0.95,
+        "bounds_min": [0.04, -0.001, 0.04],
+        "bounds_max": [0.26, 0.001, 0.26]
+      }
+    ]
+  },
+  "material": {
+    "density": 2200.0,
+    "youngs_modulus": 353700.0,
+    "poisson_ratio": 0.3,
+    "friction_angle_degrees": 38.0,
+    "hardening_h0": 35.0,
+    "hardening_h1": 0.0,
+    "hardening_h2": 0.0,
+    "hardening_h3": 0.0
+  },
+  "solver": {
+    "dx": 0.0025,
+    "dt_max": 0.0002,
+    "cfl": 1.0,
+    "particles_per_cell": 8,
+    "explicit_only": true
+  },
+  "emitter": {
+    "enabled": true,
+    "shape": "cylinder",
+    "sampling_mode": "stratified",
+    "box_min": [0.145, 0.056, 0.145],
+    "box_max": [0.155, 0.060, 0.155],
+    "radius": 0.0045,
+    "jitter": 0.35,
+    "initial_velocity": [0.0, -0.45, 0.0],
+    "particles_per_step": 192,
+    "start_step": 0,
+    "stop_step": 199,
+    "max_particles": 38400
+  },
+  "export": {
+    "export_ply": false,
+    "output_directory": "outputs",
+    "interval_steps": 16,
+    "export_initial_frame": true
+  }
+}

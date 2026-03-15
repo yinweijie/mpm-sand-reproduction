@@ -1,0 +1,32 @@
+{
+  "scene": {
+    "name": "friction_angle",
+    "domain_min": [0.0, 0.0, 0.0],
+    "domain_max": [0.432, 0.144, 0.432],
+    "gravity": [0.0, -9.81, 0.0],
+    "domain_boundary_friction_coefficient": 0.45,
+    "seed_box_min": [0.12, 0.06, 0.12],
+    "seed_box_max": [0.30, 0.13, 0.30],
+    "seed_particles": 6000,
+    "duration": 2.0,
+    "frame_stride": 10,
+    "preview_steps": 6
+  },
+  "material": {
+    "density": 2200.0,
+    "youngs_modulus": 353700.0,
+    "poisson_ratio": 0.3,
+    "friction_angle_degrees": 30.0,
+    "hardening_h0": 35.0,
+    "hardening_h1": 0.0,
+    "hardening_h2": 0.0,
+    "hardening_h3": 0.0
+  },
+  "solver": {
+    "dx": 0.001,
+    "dt_max": 0.0001,
+    "cfl": 1.0,
+    "particles_per_cell": 32,
+    "explicit_only": true
+  }
+}

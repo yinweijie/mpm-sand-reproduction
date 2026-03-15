@@ -1,0 +1,48 @@
+{
+  "scene": {
+    "name": "pile_from_spout",
+    "domain_min": [0.0, 0.0, 0.0],
+    "domain_max": [0.2, 0.08, 0.2],
+    "gravity": [0.0, -9.81, 0.0],
+    "domain_boundary_friction_coefficient": 0.35,
+    "seed_box_min": [0.085, 0.05, 0.085],
+    "seed_box_max": [0.115, 0.075, 0.115],
+    "seed_particles": 0,
+    "duration": 2.5,
+    "frame_stride": 10,
+    "preview_steps": 16
+  },
+  "material": {
+    "density": 2200.0,
+    "youngs_modulus": 353700.0,
+    "poisson_ratio": 0.3,
+    "friction_angle_degrees": 30.0,
+    "hardening_h0": 35.0,
+    "hardening_h1": 0.0,
+    "hardening_h2": 0.0,
+    "hardening_h3": 0.0
+  },
+  "solver": {
+    "dx": 0.00083,
+    "dt_max": 0.00015,
+    "cfl": 1.0,
+    "particles_per_cell": 32,
+    "explicit_only": true
+  },
+  "emitter": {
+    "enabled": true,
+    "box_min": [0.094, 0.068, 0.094],
+    "box_max": [0.106, 0.076, 0.106],
+    "initial_velocity": [0.0, -0.75, 0.0],
+    "particles_per_step": 64,
+    "start_step": 0,
+    "stop_step": 31,
+    "max_particles": 2048
+  },
+  "export": {
+    "export_ply": false,
+    "output_directory": "outputs",
+    "interval_steps": 4,
+    "export_initial_frame": true
+  }
+}
