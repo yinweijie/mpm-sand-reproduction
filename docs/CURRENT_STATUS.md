@@ -234,6 +234,11 @@
 - 末帧：
   [pile_lab_paper_like_v1_last.png](../outputs/pile_lab_dense_check_v2/pile_lab_paper_like_v1_last.png)
 
+输出目录约定：
+
+- 测试、调参与预览输出统一放到 `outputs/.test/`
+- 只有确认保留的结果，才移动或重新导出到 `outputs/`
+
 ## 5. Build and Run
 
 ### 5.1 One-time environment check
@@ -334,9 +339,9 @@ cmake --build --preset=conan-release
   - 如果当前只想先盯住一个固定案例反复调其它参数，可以先直接用单个 `--friction-angle`。
 - 当前实现里的输出方式：
   - 如果同时开启 `--export`，程序会为每个角度创建一个单独子目录，例如：
-    - `outputs/friction_sweep/friction_20.0`
-    - `outputs/friction_sweep/friction_25.0`
-    - `outputs/friction_sweep/friction_30.0`
+    - `outputs/.test/friction_sweep/friction_20.0`
+    - `outputs/.test/friction_sweep/friction_25.0`
+    - `outputs/.test/friction_sweep/friction_30.0`
   - 这样便于逐组查看 PLY、预览视频或最终渲染结果。
 
 直接运行二进制并导出 PLY：
@@ -347,13 +352,13 @@ cmake --build --preset=conan-release
   --friction-angle 50 \
   --steps 2400 \
   --export \
-  --output-dir outputs/pile_lab_dense_check_v2
+  --output-dir outputs/.test/pile_lab_case
 ```
 
 或者直接用脚本：
 
 ```bash
-bash ./scripts/run_pile_lab_case.sh release 2400 outputs/pile_lab_case 50
+bash ./scripts/run_pile_lab_case.sh release 2400 outputs/.test/pile_lab_case 50
 ```
 
 脚本：
@@ -370,7 +375,7 @@ bash ./scripts/run_pile_lab_case.sh release 2400 outputs/pile_lab_case 50
   - 默认：`2400`
 - 第 3 个位置参数 `output_root`
   - 输出根目录
-  - 默认：`outputs/pile_lab_case`
+  - 默认：`outputs/.test/pile_lab_case`
 - 第 4 个位置参数 `friction_angle`
   - 覆盖 `pile_lab` 的摩擦角
   - 默认：`50`
@@ -391,14 +396,14 @@ bash ./scripts/run_pile_lab_case.sh release 2400 outputs/pile_lab_case 50
 示例：
 
 ```bash
-bash ./scripts/run_pile_lab_case.sh release 2400 outputs/pile_lab_case 50
+bash ./scripts/run_pile_lab_case.sh release 2400 outputs/.test/pile_lab_case 50
 ```
 
 这条命令的含义：
 
 - 用 release 版运行
 - 仿真 2400 步
-- 输出到 `outputs/pile_lab_case`
+- 输出到 `outputs/.test/pile_lab_case`
 - 用 `50` 度摩擦角
 
 当前 pile-lab 相关常用命令：
@@ -410,7 +415,7 @@ bash ./scripts/run_pile_lab_case.sh release 2400 outputs/pile_lab_case 50
   --scene scenes/pile_lab.json \
   --steps 2400 \
   --export \
-  --output-dir outputs/pile_lab_dense_check_v2
+  --output-dir outputs/.test/pile_lab_case
 ```
 
 - 摩擦角 sweep：
@@ -421,7 +426,7 @@ bash ./scripts/run_pile_lab_case.sh release 2400 outputs/pile_lab_case 50
   --steps 128 \
   --sweep-friction-angles 20,25,30,35,40 \
   --export \
-  --output-dir outputs/friction_sweep
+  --output-dir outputs/.test/friction_sweep
 ```
 
 这条命令的含义：
@@ -429,7 +434,7 @@ bash ./scripts/run_pile_lab_case.sh release 2400 outputs/pile_lab_case 50
 - 固定使用 `friction_angle.json` 这个场景；
 - 依次把摩擦角设为 `20`、`25`、`30`、`35`、`40`；
 - 每个角度都独立跑 `128` 步；
-- 把结果分别写到 `outputs/friction_sweep/` 下的不同子目录。
+- 把结果分别写到 `outputs/.test/friction_sweep/` 下的不同子目录。
 
 ### 5.4 Tests
 
@@ -445,13 +450,13 @@ ctest --test-dir build/Release --output-on-failure
 
 ```bash
 python3 tools/render_ply_sequence.py \
-  --input-dir outputs/pile_lab_dense_check_v2 \
+  --input-dir outputs/.test/pile_lab_case/frames \
   --scene scenes/pile_lab.json \
   --fit-mode hybrid \
   --camera-preset pile_lab \
   --fps 20 \
   --point-size 4.0 \
-  --output outputs/pile_lab_dense_check_v2/pile_lab_preview.mp4 \
+  --output outputs/.test/pile_lab_case/pile_lab_preview.mp4 \
   --title "klar2016 pile lab preview"
 ```
 
@@ -483,8 +488,8 @@ python3 tools/render_ply_sequence.py \
 export BLENDER_BIN=/home/ywj22/blender-5.0.1-linux-x64/blender
 
 bash ./scripts/render_pile_lab_blender.sh \
-  outputs/pile_lab_dense_check_v2 \
-  outputs/pile_lab_dense_check_v2/pile_lab_paper_like_v1.mp4 \
+  outputs/.test/pile_lab_case/frames \
+  outputs/.test/pile_lab_case/pile_lab_blender.mp4 \
   scenes/pile_lab.json
 ```
 
@@ -496,10 +501,10 @@ bash ./scripts/render_pile_lab_blender.sh \
 
 - 第 1 个位置参数 `frames_dir`
   - PLY 帧目录
-  - 默认：`outputs/pile_lab_cyl_phi50/frames`
+  - 默认：`outputs/.test/pile_lab_case/frames`
 - 第 2 个位置参数 `output_path`
   - 最终 MP4 路径
-  - 默认：`outputs/pile_lab_cyl_phi50/pile_lab_blender.mp4`
+  - 默认：`outputs/.test/pile_lab_case/pile_lab_blender.mp4`
 - 第 3 个位置参数 `scene_path`
   - 场景 JSON
   - 默认：`scenes/pile_lab.json`
@@ -525,8 +530,8 @@ bash ./scripts/render_pile_lab_blender.sh \
 export BLENDER_BIN=/home/ywj22/blender-5.0.1-linux-x64/blender
 
 bash ./scripts/render_pile_lab_blender.sh \
-  outputs/pile_lab_dense_check_v2 \
-  outputs/pile_lab_dense_check_v2/pile_lab_paper_like_v1.mp4 \
+  outputs/.test/pile_lab_case/frames \
+  outputs/.test/pile_lab_case/pile_lab_blender.mp4 \
   scenes/pile_lab.json \
   studio \
   points
@@ -547,9 +552,9 @@ bash ./scripts/render_pile_lab_blender.sh \
 export BLENDER_BIN=/home/ywj22/blender-5.0.1-linux-x64/blender
 
 "$BLENDER_BIN" -b -P tools/render_ply_sequence_blender.py -- \
-  --input-dir outputs/pile_lab_dense_check_v2 \
+  --input-dir outputs/.test/pile_lab_case/frames \
   --scene scenes/pile_lab.json \
-  --output outputs/pile_lab_dense_check_v2/check.png \
+  --output outputs/.test/pile_lab_case/check.png \
   --output-format PNG \
   --engine CYCLES \
   --samples 48 \

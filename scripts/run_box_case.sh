@@ -4,7 +4,7 @@ set -euo pipefail
 
 mode="${1:-release}"
 steps="${2:-400}"
-output_root="${3:-outputs/box_case}"
+output_root="${3:-outputs/.test/box_case}"
 scene="scenes/box_case.json"
 
 if [[ "${mode}" == "release" ]]; then

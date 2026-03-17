@@ -101,7 +101,7 @@ struct EmitterConfig {
 
 struct ExportConfig {
     bool export_ply = false;
-    std::string output_directory = "outputs";
+    std::string output_directory = "outputs/.test";
     int interval_steps = 10;
     bool export_initial_frame = true;
 };

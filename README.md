@@ -34,7 +34,7 @@ Export simulation frames:
   --scene scenes/pile_lab.json \
   --steps 2400 \
   --export \
-  --output-dir outputs/pile_lab_case
+  --output-dir outputs/.test/pile_lab_case
 ```
 
 Render with Blender:
@@ -43,10 +43,15 @@ Render with Blender:
 export BLENDER_BIN=/home/ywj22/blender-5.0.1-linux-x64/blender
 
 bash ./scripts/render_pile_lab_blender.sh \
-  outputs/pile_lab_case \
-  outputs/pile_lab_case/pile_lab.mp4 \
+  outputs/.test/pile_lab_case/frames \
+  outputs/.test/pile_lab_case/pile_lab.mp4 \
   scenes/pile_lab.json
 ```
+
+Testing convention:
+
+- trial and preview outputs go under `outputs/.test/`
+- approved outputs that you decide to keep can be promoted into `outputs/`
 
 ## Documentation
 

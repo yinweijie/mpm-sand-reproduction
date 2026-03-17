@@ -4,7 +4,7 @@ set -euo pipefail
 
 mode="${1:-release}"
 steps="${2:-3000}"
-output_root="${3:-outputs/hourglass_case}"
+output_root="${3:-outputs/.test/hourglass_case}"
 scene="scenes/hourglass.json"
 
 if [[ "${mode}" == "release" ]]; then

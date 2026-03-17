@@ -5,9 +5,9 @@ Render klar2016 PLY particle frames with Blender.
 
 Usage:
   blender -b -P tools/render_ply_sequence_blender.py -- \
-    --input-dir outputs/pile_lab_cyl_phi50/frames \
+    --input-dir outputs/.test/pile_lab_case/frames \
     --scene scenes/pile_lab.json \
-    --output outputs/pile_lab_cyl_phi50/pile_lab_blender.mp4
+    --output outputs/.test/pile_lab_case/pile_lab_blender.mp4
 """
 
 from __future__ import annotations

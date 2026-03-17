@@ -65,7 +65,7 @@
   },
   "export": {
     "export_ply": false,
-    "output_directory": "outputs",
+    "output_directory": "outputs/.test",
     "interval_steps": 16,
     "export_initial_frame": true
   }

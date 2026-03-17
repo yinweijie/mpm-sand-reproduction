@@ -2,8 +2,8 @@
 
 set -euo pipefail
 
-frames_dir="${1:-outputs/pile_lab_cyl_phi50/frames}"
-output_path="${2:-outputs/pile_lab_cyl_phi50/pile_lab_blender.mp4}"
+frames_dir="${1:-outputs/.test/pile_lab_case/frames}"
+output_path="${2:-outputs/.test/pile_lab_case/pile_lab_blender.mp4}"
 scene_path="${3:-scenes/pile_lab.json}"
 shading_mode="${4:-studio}"
 render_mode="${5:-points}"

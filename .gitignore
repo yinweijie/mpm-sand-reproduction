@@ -5,4 +5,4 @@ CMakeUserPresets.json
 .cache/
 __pycache__/
 *.pyc
-outputs/**/.gif_tmp/
+outputs/.test/

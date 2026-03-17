@@ -4,7 +4,7 @@ set -euo pipefail
 
 mode="${1:-release}"
 steps="${2:-2400}"
-output_root="${3:-outputs/pile_lab_case}"
+output_root="${3:-outputs/.test/pile_lab_case}"
 friction_angle="${4:-50}"
 scene="scenes/pile_lab.json"
 
