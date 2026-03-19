@@ -1,0 +1,12 @@
+ply
+format ascii 1.0
+element vertex 0
+property float x
+property float y
+property float z
+property float vx
+property float vy
+property float vz
+property float alpha
+property float det_fe
+end_header

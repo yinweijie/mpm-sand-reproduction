@@ -1,0 +1,42 @@
+{
+  "name": "pile_from_spout_16",
+  "generated_at": "2026-03-19T22:19:02+08:00",
+  "git_commit": "31884f9",
+  "command": "./build/Release/klar2016_sand --scene scenes/pile_from_spout.json --steps 16 --export --output-dir outputs/baselines/pile_from_spout_16/frames",
+  "scene": "scenes/pile_from_spout.json",
+  "steps": 16,
+  "output_dir": "outputs/baselines/pile_from_spout_16/frames",
+  "summary_line": "KLAR2016 development step: scene='pile_from_spout', estimated_grid_cells=5633857, active_grid_nodes=4437, particles=1024, avg_speed=0.762511, avg_det_fe=0.999993, avg_alpha=0.326599, bbox_volume=0.000001, height_span=0.009554, explicit_only=true",
+  "stats": {
+    "estimated_grid_cells": 5633857,
+    "active_grid_nodes": 4437,
+    "particles": 1024,
+    "avg_speed": 0.762511,
+    "avg_det_fe": 0.999993,
+    "avg_alpha": 0.326599,
+    "bbox_volume": 1e-06,
+    "height_span": 0.009554
+  },
+  "frames": [
+    {
+      "file": "frames/frame_00000.ply",
+      "sha256": "59b15acfd090c208699cb88c3533daf0772ed354de56f9eb4822f1c8845054db"
+    },
+    {
+      "file": "frames/frame_00004.ply",
+      "sha256": "eba059113a51613049147cd9419e7c2a90d5b368d78b9971edbdda41cca3d011"
+    },
+    {
+      "file": "frames/frame_00008.ply",
+      "sha256": "9d2cacc2473e707759ffc067891fa2bf9ccf01fcb374b1fefe5a98e6489d8963"
+    },
+    {
+      "file": "frames/frame_00012.ply",
+      "sha256": "edfff41270a1c6bb0ebcfddaadc4fc4e31ce874daf3bf4f3a0355132721687ce"
+    },
+    {
+      "file": "frames/frame_00016.ply",
+      "sha256": "10e266c05fef8655ae9c78d9b0539f7747a1314da68d90795a36bbe0e7db29b0"
+    }
+  ]
+}
