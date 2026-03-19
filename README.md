@@ -62,6 +62,7 @@ Commit hook:
 ## Documentation
 
 - [Docs Index](docs/README.md)
+- [Class Diagram](docs/CLASS_DIAGRAM.md)
 - [Current Status](docs/CURRENT_STATUS.md)
 - [Roadmap](docs/ROADMAP.md)
 - [Skills Registry](SKILLS.md)
