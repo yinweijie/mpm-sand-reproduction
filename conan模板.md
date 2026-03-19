@@ -165,8 +165,8 @@ if [ "$mode" == "release" ]; then
 else
     echo "Building in debug mode..."
     ## > conan config home
-    ## > cp /home/ywj22/.conan2/profiles/default /home/ywj22/.conan2/profiles/debug
-    ## > code /home/ywj22/.conan2/profiles/debug
+    ## > cp ~/.conan2/profiles/default ~/.conan2/profiles/debug
+    ## > code ~/.conan2/profiles/debug
     ## 
     ## build_type=Debug
     ## 
@@ -185,6 +185,5 @@ cmake传入`--preset=conan-release`参数，直接用CMakeUserPresets.json配置
 
 <!-- 这是一张图片，ocr 内容为：CMAKEUSERPRESETS.JSON X BUILD.SH TEST.SH CMAKELISTS.TXT CON CMAKEUSERPRESETS.JSON > 1 234567 "VERSION" 4, 'VENDOR' 1 CONAN INCLUDE": "BUILD/RELEASE/GENERATORS/CMAKEPRESETS.JSON" 8 -->
 ![](https://cdn.nlark.com/yuque/0/2025/png/25517747/1755438546424-b122de0c-a86d-4a3f-9743-f8d87903cefa.png)
-
 
 

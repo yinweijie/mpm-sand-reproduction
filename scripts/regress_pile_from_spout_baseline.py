@@ -103,10 +103,17 @@ def ensure_under_outputs(repo_root: Path, path: Path) -> Path:
     return resolved
 
 
+def repo_relative(path: Path, repo_root: Path) -> str:
+    return path.relative_to(repo_root).as_posix()
+
+
 def build_release_binary(repo_root: Path, scene_path: Path) -> None:
     build_script = repo_root / "build.sh"
-    print(f"Building release binary with {build_script} ...")
-    stream_command(["bash", str(build_script), "release", str(scene_path)], cwd=repo_root)
+    print(f"Building release binary with {repo_relative(build_script, repo_root)} ...")
+    stream_command(
+        ["bash", repo_relative(build_script, repo_root), "release", repo_relative(scene_path, repo_root)],
+        cwd=repo_root,
+    )
 
 
 def simulation_command_string(
@@ -141,16 +148,16 @@ def run_export(
 
     run_log_path = output_root / "run.log"
     command = [
-        str(binary_path),
+        repo_relative(binary_path, repo_root),
         "--scene",
-        str(scene_path),
+        repo_relative(scene_path, repo_root),
         "--steps",
         str(steps),
         "--export",
         "--output-dir",
-        str(frames_dir),
+        repo_relative(frames_dir, repo_root),
     ]
-    print(f"Running baseline export into {output_root} ...")
+    print(f"Running baseline export into {repo_relative(output_root, repo_root)} ...")
     stream_command(command, cwd=repo_root, log_path=run_log_path)
     return run_log_path
 
@@ -270,11 +277,11 @@ def main() -> int:
     write_manifest(scratch_root, reference, repo_root, binary_path, scene_path)
 
     if args.update_baseline:
-        print(f"Updating tracked baseline at {tracked_root} ...")
+        print(f"Updating tracked baseline at {repo_relative(tracked_root, repo_root)} ...")
         update_tracked_baseline(scratch_root, tracked_root)
         write_manifest(tracked_root, reference, repo_root, binary_path, scene_path)
 
-    print(f"Regression check passed: {scratch_root}")
+    print(f"Regression check passed: {repo_relative(scratch_root, repo_root)}")
     return 0
 
 

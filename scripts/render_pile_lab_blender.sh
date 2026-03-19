@@ -8,7 +8,7 @@ scene_path="${3:-scenes/pile_lab.json}"
 shading_mode="${4:-studio}"
 render_mode="${5:-points}"
 
-default_blender="/home/ywj22/blender-5.0.1-linux-x64/blender"
+default_blender=~/blender-5.0.1-linux-x64/blender
 if [[ -n "${BLENDER_BIN:-}" ]]; then
     blender_bin="${BLENDER_BIN}"
 elif [[ -x "${default_blender}" ]]; then

@@ -2,5 +2,5 @@ scene=pile_from_spout, dx=0.00083, dt_max=0.00015, ppc=32, seed_particles=0, see
 domain_min=(0, 0, 0)
 domain_max=(0.2, 0.08, 0.2)
 running preview steps=16
-exported ply frames to "/home/ywj22/wokdir/mpm/mpm_SIGGRAPH_2017/outputs/baselines/pile_from_spout_16/frames"
+exported ply frames to "outputs/.test/baseline_pile_from_spout_16/frames"
 KLAR2016 development step: scene='pile_from_spout', estimated_grid_cells=5633857, active_grid_nodes=4437, particles=1024, avg_speed=0.762511, avg_det_fe=0.999993, avg_alpha=0.326599, bbox_volume=0.000001, height_span=0.009554, explicit_only=true

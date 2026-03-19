@@ -40,7 +40,7 @@ Export simulation frames:
 Render with Blender:
 
 ```bash
-export BLENDER_BIN=/home/ywj22/blender-5.0.1-linux-x64/blender
+export BLENDER_BIN=~/blender-5.0.1-linux-x64/blender
 
 bash ./scripts/render_pile_lab_blender.sh \
   outputs/.test/pile_lab_case/frames \
@@ -53,11 +53,18 @@ Testing convention:
 - trial and preview outputs go under `outputs/.test/`
 - approved outputs that you decide to keep can be promoted into `outputs/`
 
+Commit hook:
+
+- run `git config --local core.hooksPath .githooks` once in this clone
+- every commit will then run `scripts/check_no_absolute_paths.py` on staged files
+- use `python3 scripts/check_no_absolute_paths.py --all-tracked` to scan the whole repo manually
+
 ## Documentation
 
 - [Docs Index](docs/README.md)
 - [Current Status](docs/CURRENT_STATUS.md)
 - [Roadmap](docs/ROADMAP.md)
+- [Skills Registry](SKILLS.md)
 - [References](references/README.md)
 - [AI Disclosure](AI_DISCLOSURE.md)
 

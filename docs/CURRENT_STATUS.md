@@ -195,7 +195,7 @@
 当前更可靠的最终渲染链使用：
 
 - 官方 Blender 二进制：
-  `/home/ywj22/blender-5.0.1-linux-x64/blender`
+  `~/blender-5.0.1-linux-x64/blender`
 
 说明：
 
@@ -485,7 +485,7 @@ python3 tools/render_ply_sequence.py \
 当前推荐的最终渲染方法：
 
 ```bash
-export BLENDER_BIN=/home/ywj22/blender-5.0.1-linux-x64/blender
+export BLENDER_BIN=~/blender-5.0.1-linux-x64/blender
 
 bash ./scripts/render_pile_lab_blender.sh \
   outputs/.test/pile_lab_case/frames \
@@ -519,7 +519,7 @@ bash ./scripts/render_pile_lab_blender.sh \
 
 - 自动寻找 Blender：
   - 优先使用环境变量 `BLENDER_BIN`
-  - 否则尝试 `/home/ywj22/blender-5.0.1-linux-x64/blender`
+  - 否则尝试 `~/blender-5.0.1-linux-x64/blender`
   - 再否则退回系统里的 `blender`
 - 调用 `tools/render_ply_sequence_blender.py`
 - 默认使用 `Cycles`、`960x960`、`64 samples`
@@ -527,7 +527,7 @@ bash ./scripts/render_pile_lab_blender.sh \
 示例：
 
 ```bash
-export BLENDER_BIN=/home/ywj22/blender-5.0.1-linux-x64/blender
+export BLENDER_BIN=~/blender-5.0.1-linux-x64/blender
 
 bash ./scripts/render_pile_lab_blender.sh \
   outputs/.test/pile_lab_case/frames \
@@ -549,7 +549,7 @@ bash ./scripts/render_pile_lab_blender.sh \
 如果只想渲一张检查图：
 
 ```bash
-export BLENDER_BIN=/home/ywj22/blender-5.0.1-linux-x64/blender
+export BLENDER_BIN=~/blender-5.0.1-linux-x64/blender
 
 "$BLENDER_BIN" -b -P tools/render_ply_sequence_blender.py -- \
   --input-dir outputs/.test/pile_lab_case/frames \
