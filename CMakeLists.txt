@@ -15,6 +15,10 @@ find_package(GTest REQUIRED)
 add_library(klar2016_core
     src/core/simulation.cpp
     src/core/simulation_config.cpp
+    src/core/simulation_detail.cpp
+    src/core/simulation_io.cpp
+    src/core/simulation_particles.cpp
+    src/core/simulation_step.cpp
 )
 
 target_include_directories(klar2016_core

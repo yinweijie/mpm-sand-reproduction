@@ -7,12 +7,14 @@
 
 namespace klar2016 {
 
+// Basic 3D vector used by JSON scene config fields.
 struct Vec3d {
     double x = 0.0;
     double y = 0.0;
     double z = 0.0;
 };
 
+// Material parameters for the Drucker-Prager sand model.
 struct MaterialConfig {
     double density = 2200.0;
     double youngs_modulus = 3.537e5;
@@ -24,6 +26,7 @@ struct MaterialConfig {
     double hardening_h3 = 10.0;
 };
 
+// Global solver settings that control resolution and time stepping.
 struct SolverConfig {
     double dx = 0.0025;
     double dt_max = 1.0e-4;
@@ -32,6 +35,7 @@ struct SolverConfig {
     bool explicit_only = true;
 };
 
+// A single plane collider, optionally bounded to a scene region.
 struct PlaneColliderConfig {
     Vec3d point{0.0, 0.0, 0.0};
     Vec3d normal{0.0, 1.0, 0.0};
@@ -41,6 +45,7 @@ struct PlaneColliderConfig {
     Vec3d bounds_max{0.0, 0.0, 0.0};
 };
 
+// Procedural hourglass shell used to generate the classic demo boundary.
 struct HourglassShellConfig {
     bool enabled = false;
     Vec3d waist_center{0.5, 0.5, 0.5};
@@ -55,6 +60,7 @@ struct HourglassShellConfig {
     double bottom_cap_friction_coefficient = 0.85;
 };
 
+// Procedural cylindrical shell used by the pile_lab scene.
 struct CylinderShellConfig {
     bool enabled = false;
     Vec3d center{0.5, 0.5, 0.5};
@@ -65,6 +71,7 @@ struct CylinderShellConfig {
     int segments = 24;
 };
 
+// Scene-level settings: domain, emitters, colliders, and simulation horizon.
 struct SceneConfig {
     std::string name = "hourglass";
     Vec3d domain_min{0.0, 0.0, 0.0};
@@ -84,6 +91,7 @@ struct SceneConfig {
     std::vector<PlaneColliderConfig> colliders;
 };
 
+// Optional particle emitter used by preview scenes and baselines.
 struct EmitterConfig {
     bool enabled = false;
     std::string shape = "box";
@@ -99,6 +107,7 @@ struct EmitterConfig {
     int max_particles = 0;
 };
 
+// PLY export settings for preview / regression output.
 struct ExportConfig {
     bool export_ply = false;
     std::string output_directory = "outputs/.test";
@@ -106,6 +115,7 @@ struct ExportConfig {
     bool export_initial_frame = true;
 };
 
+// Root configuration object loaded from scene JSON.
 struct SimulationConfig {
     SceneConfig scene;
     MaterialConfig material;

@@ -13,6 +13,7 @@
 
 namespace klar2016 {
 
+// Compact solver snapshot used by logs, tests, and regression baselines.
 struct SimulationStats {
     int particle_count = 0;
     int active_grid_nodes = 0;
@@ -26,6 +27,7 @@ struct SimulationStats {
 
 class Simulation {
 public:
+    // Per-particle runtime state. This is mutated during every solver substep.
     struct Particle {
         Eigen::Vector3d position = Eigen::Vector3d::Zero();
         Eigen::Vector3d velocity = Eigen::Vector3d::Zero();
@@ -37,22 +39,31 @@ public:
         double alpha = 0.0;
     };
 
+    // Sparse grid node used during one MPM step.
     struct GridNode {
         double mass = 0.0;
         Eigen::Vector3d momentum = Eigen::Vector3d::Zero();
         Eigen::Vector3d velocity = Eigen::Vector3d::Zero();
     };
 
+    // Build solver state, size the grid, and seed the initial particles.
     explicit Simulation(SimulationConfig config);
 
+    // Advance the solver by `steps` substeps.
     void advance(int steps);
+    // Render the summary line used by logs and baseline manifests.
     std::string build_summary() const;
+    // Return the grid cell estimate derived from the configured domain and dx.
     int estimated_grid_cells() const;
+    // Aggregate runtime stats for tests and exports.
     SimulationStats stats() const;
+    // Return the current substep index.
     int current_step() const;
+    // Export particles as an ASCII PLY file.
     void write_particle_ply(const std::filesystem::path &path) const;
 
 private:
+    // Particle seeding and emitter helpers.
     void initialize_particles();
     void append_seed_particles(
         const Eigen::Vector3d &box_min,
@@ -88,6 +99,7 @@ private:
         const Eigen::Vector3d &initial_velocity,
         double particle_mass,
         double particle_volume);
+    // Solver internals.
     void emit_particles();
     void reset_grid();
     void substep();
