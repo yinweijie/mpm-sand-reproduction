@@ -11,6 +11,7 @@ namespace klar2016 {
 
 namespace {
 
+// Parse a 3-component vector field from JSON and validate its shape.
 Vec3d parse_vec3(const nlohmann::json &node, const char *key) {
     const auto &value = node.at(key);
     if (!value.is_array() || value.size() != 3) {
@@ -19,6 +20,7 @@ Vec3d parse_vec3(const nlohmann::json &node, const char *key) {
     return Vec3d{value.at(0).get<double>(), value.at(1).get<double>(), value.at(2).get<double>()};
 }
 
+// Parse one plane collider description from the scene JSON.
 PlaneColliderConfig parse_plane_collider(const nlohmann::json &node) {
     PlaneColliderConfig collider;
     collider.point = parse_vec3(node, "point");
@@ -36,6 +38,7 @@ PlaneColliderConfig parse_plane_collider(const nlohmann::json &node) {
     return collider;
 }
 
+// Parse the procedural hourglass shell block from the scene JSON.
 HourglassShellConfig parse_hourglass_shell(const nlohmann::json &node) {
     HourglassShellConfig shell;
     shell.enabled = node.value("enabled", true);
@@ -58,6 +61,7 @@ HourglassShellConfig parse_hourglass_shell(const nlohmann::json &node) {
     return shell;
 }
 
+// Parse one procedural cylindrical shell block from the scene JSON.
 CylinderShellConfig parse_cylinder_shell(const nlohmann::json &node) {
     CylinderShellConfig shell;
     shell.enabled = node.value("enabled", true);
@@ -74,6 +78,7 @@ CylinderShellConfig parse_cylinder_shell(const nlohmann::json &node) {
 
 }  // namespace
 
+// Load the full scene, material, solver, emitter, and export configuration from JSON.
 SimulationConfig load_config(const std::filesystem::path &path) {
     std::ifstream input(path);
     if (!input) {
@@ -181,6 +186,7 @@ SimulationConfig load_config(const std::filesystem::path &path) {
     return config;
 }
 
+// Summarize the most important configuration fields in one log-friendly line.
 std::string describe(const SimulationConfig &config) {
     std::ostringstream out;
     out << "scene=" << config.scene.name
@@ -203,6 +209,7 @@ std::string describe(const SimulationConfig &config) {
     return out.str();
 }
 
+// Format a labeled vector for console output.
 std::string describe(std::string_view label, const Vec3d &value) {
     return fmt::format("{}=({}, {}, {})", label, value.x, value.y, value.z);
 }

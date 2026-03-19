@@ -8,14 +8,17 @@ namespace klar2016::detail {
 
 // Geometry and collider conversion helpers.
 
+// Convert a lightweight config vector into the Eigen representation used by the solver.
 Eigen::Vector3d to_eigen(const Vec3d &value) {
     return Eigen::Vector3d(value.x, value.y, value.z);
 }
 
+// Convert an Eigen vector back to the lightweight config representation.
 Vec3d to_vec3(const Eigen::Vector3d &value) {
     return Vec3d{value.x(), value.y(), value.z()};
 }
 
+// Package runtime plane data into a bounded collider config object.
 PlaneColliderConfig make_plane_collider_config(
     const Eigen::Vector3d &point,
     const Eigen::Vector3d &normal,
@@ -32,6 +35,7 @@ PlaneColliderConfig make_plane_collider_config(
     return collider;
 }
 
+// Normalize, validate, and materialize a plane collider for runtime use.
 RuntimePlaneCollider make_runtime_plane_collider(const PlaneColliderConfig &collider) {
     RuntimePlaneCollider runtime_collider;
     runtime_collider.point = to_eigen(collider.point);
@@ -54,6 +58,7 @@ RuntimePlaneCollider make_runtime_plane_collider(const PlaneColliderConfig &coll
     return runtime_collider;
 }
 
+// Expand the procedural hourglass shell into the plane colliders used by the solver.
 void append_hourglass_shell_colliders(
     const HourglassShellConfig &shell,
     std::vector<RuntimePlaneCollider> &runtime_colliders) {
@@ -202,6 +207,7 @@ void append_hourglass_shell_colliders(
     }
 }
 
+// Expand a cylindrical shell into a ring of plane colliders.
 void append_cylinder_shell_colliders(
     const CylinderShellConfig &shell,
     std::vector<RuntimePlaneCollider> &runtime_colliders) {
@@ -254,6 +260,7 @@ void append_cylinder_shell_colliders(
     }
 }
 
+// Check whether a projected point lies inside a collider's bounded active region.
 bool plane_collider_contains_projection(
     const RuntimePlaneCollider &collider,
     const Eigen::Vector3d &projection) {
@@ -267,6 +274,7 @@ bool plane_collider_contains_projection(
         (projection.array() <= collider.bounds_max.array() + kEpsilon).all();
 }
 
+// Remove inward normal motion and apply frictional tangential damping.
 void apply_unilateral_boundary_response(
     const Eigen::Vector3d &normal,
     double friction_coefficient,
@@ -289,6 +297,7 @@ void apply_unilateral_boundary_response(
     velocity = tangential_velocity;
 }
 
+// Apply plane-collider velocity constraints to a point moving near the collider.
 void apply_plane_collider_velocity(
     const RuntimePlaneCollider &collider,
     const Eigen::Vector3d &position,
@@ -307,6 +316,7 @@ void apply_plane_collider_velocity(
     }
 }
 
+// Push a particle back to the collider surface and damp its boundary-relative motion.
 void project_particle_against_plane(
     const RuntimePlaneCollider &collider,
     Eigen::Vector3d &position,
@@ -330,6 +340,7 @@ void project_particle_against_plane(
 
 // Material and plasticity helpers.
 
+// Derive the isotropic Lame parameters from the configured elastic constants.
 LameParameters compute_lame_parameters(const MaterialConfig &material) {
     const double youngs_modulus = material.youngs_modulus;
     const double poisson_ratio = material.poisson_ratio;
@@ -342,6 +353,7 @@ LameParameters compute_lame_parameters(const MaterialConfig &material) {
     return result;
 }
 
+// Evaluate the friction angle implied by the current hardening state.
 double friction_angle_from_hardening_state(
     double hardening_state,
     const MaterialConfig &material) {
@@ -358,6 +370,7 @@ double friction_angle_from_hardening_state(
             std::exp(-material.hardening_h2 * hardening_state);
 }
 
+// Convert a friction angle in degrees to the Drucker-Prager alpha parameter.
 double alpha_from_friction_angle_degrees(double friction_angle_degrees) {
     const double clamped_degrees = std::clamp(friction_angle_degrees, 0.0, 89.0);
     const double phi = clamped_degrees * kPi / 180.0;
@@ -367,6 +380,7 @@ double alpha_from_friction_angle_degrees(double friction_angle_degrees) {
         (3.0 - std::sin(phi));
 }
 
+// Read the current particle alpha, including hardening when it is enabled.
 double current_alpha(const Simulation::Particle &particle, const MaterialConfig &material) {
     if (
         material.hardening_h1 == 0.0 &&
@@ -379,6 +393,7 @@ double current_alpha(const Simulation::Particle &particle, const MaterialConfig 
         friction_angle_from_hardening_state(particle.hardening_state, material));
 }
 
+// Evaluate the derivative of elastic energy with respect to the elastic deformation gradient.
 Eigen::Matrix3d elastic_energy_derivative(
     const Eigen::Matrix3d &elastic_deformation_gradient,
     const MaterialConfig &material) {
@@ -404,6 +419,7 @@ Eigen::Matrix3d elastic_energy_derivative(
         svd.matrixU() * gradient_diagonal.asDiagonal() * svd.matrixV().transpose();
 }
 
+// Project a trial elastic deformation gradient back onto the Drucker-Prager admissible set.
 PlasticProjectionResult project_drucker_prager(
     const Eigen::Matrix3d &candidate_elastic_deformation_gradient,
     double alpha,

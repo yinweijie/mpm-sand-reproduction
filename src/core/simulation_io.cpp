@@ -10,6 +10,7 @@ namespace klar2016 {
 
 // Solver observability and export helpers.
 
+// Export the current particle state as an ASCII PLY point cloud.
 void Simulation::write_particle_ply(const std::filesystem::path &path) const {
     if (path.has_parent_path()) {
         std::filesystem::create_directories(path.parent_path());
@@ -47,6 +48,7 @@ void Simulation::write_particle_ply(const std::filesystem::path &path) const {
     }
 }
 
+// Aggregate particle and grid statistics for logs, tests, and regressions.
 SimulationStats Simulation::stats() const {
     SimulationStats result;
     result.particle_count = static_cast<int>(particles_.size());
@@ -78,6 +80,7 @@ SimulationStats Simulation::stats() const {
     return result;
 }
 
+// Format the one-line summary used by preview runs and regression baselines.
 std::string Simulation::build_summary() const {
     const auto current_stats = stats();
     return fmt::format(

@@ -11,6 +11,7 @@ namespace klar2016 {
 
 // Particle seeding and emitter logic.
 
+// Seed the initial particle set from either PPC sampling or fixed-count sampling.
 void Simulation::initialize_particles() {
     if (config_.scene.seed_particles < 0) {
         throw std::runtime_error("scene.seed_particles must be non-negative");
@@ -79,6 +80,7 @@ void Simulation::initialize_particles() {
     }
 }
 
+// Fill a box volume with regularly spaced particles and optional jitter.
 void Simulation::append_regular_seed_particles(
     const Eigen::Vector3d &box_min,
     const Eigen::Vector3d &box_max,
@@ -137,6 +139,7 @@ void Simulation::append_regular_seed_particles(
     }
 }
 
+// Fill a box volume with randomly sampled particles.
 void Simulation::append_seed_particles(
     const Eigen::Vector3d &box_min,
     const Eigen::Vector3d &box_max,
@@ -167,6 +170,7 @@ void Simulation::append_seed_particles(
     }
 }
 
+// Fill a cylindrical source volume with randomly sampled particles.
 void Simulation::append_cylindrical_particles(
     const Eigen::Vector3d &center,
     double radius,
@@ -207,6 +211,7 @@ void Simulation::append_cylindrical_particles(
     }
 }
 
+// Fill a cylindrical source volume with layered particles for more even coverage.
 void Simulation::append_stratified_cylindrical_particles(
     const Eigen::Vector3d &center,
     double radius,
@@ -299,6 +304,7 @@ void Simulation::append_stratified_cylindrical_particles(
     }
 }
 
+// Spawn runtime emitter particles for the current step when the emitter is active.
 void Simulation::emit_particles() {
     if (!config_.emitter.enabled || config_.emitter.particles_per_step <= 0) {
         return;

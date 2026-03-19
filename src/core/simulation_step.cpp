@@ -12,14 +12,17 @@ namespace klar2016 {
 
 // Grid indexing helpers.
 
+// Clear the sparse grid before scattering particle state into it again.
 void Simulation::reset_grid() {
     grid_.clear();
 }
 
+// Convert 3D grid coordinates to the flattened sparse-grid key.
 int Simulation::grid_index(int i, int j, int k) const {
     return (i * grid_ny_ + j) * grid_nz_ + k;
 }
 
+// Recover 3D grid coordinates from a flattened sparse-grid key.
 Eigen::Vector3i Simulation::unpack_grid_index(int flat_index) const {
     const int k = flat_index % grid_nz_;
     const int yz_index = flat_index / grid_nz_;
@@ -28,11 +31,12 @@ Eigen::Vector3i Simulation::unpack_grid_index(int flat_index) const {
     return Eigen::Vector3i(i, j, k);
 }
 
+// Check whether a grid coordinate lies inside the allocated domain grid.
 bool Simulation::inside_grid(int i, int j, int k) const {
     return i >= 0 && i < grid_nx_ && j >= 0 && j < grid_ny_ && k >= 0 && k < grid_nz_;
 }
 
-// One solver substep: emit particles, scatter to grid, solve grid motion, gather back.
+// Execute one full solver substep: emit, P2G, grid update, G2P, and collisions.
 
 void Simulation::substep() {
     emit_particles();

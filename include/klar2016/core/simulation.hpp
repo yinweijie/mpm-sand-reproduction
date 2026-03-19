@@ -13,7 +13,7 @@
 
 namespace klar2016 {
 
-// Compact solver snapshot used by logs, tests, and regression baselines.
+/// @brief Aggregates solver statistics used by logs, tests, and baseline manifests.
 struct SimulationStats {
     int particle_count = 0;
     int active_grid_nodes = 0;
@@ -25,9 +25,10 @@ struct SimulationStats {
     double particle_height_span = 0.0;
 };
 
+/// @brief Owns the full MPM sand simulation state and advances it step by step.
 class Simulation {
 public:
-    // Per-particle runtime state. This is mutated during every solver substep.
+    /// @brief Stores the mutable runtime state for one simulated sand particle.
     struct Particle {
         Eigen::Vector3d position = Eigen::Vector3d::Zero();
         Eigen::Vector3d velocity = Eigen::Vector3d::Zero();
@@ -39,32 +40,33 @@ public:
         double alpha = 0.0;
     };
 
-    // Sparse grid node used during one MPM step.
+    /// @brief Stores sparse grid mass, momentum, and velocity during one MPM step.
     struct GridNode {
         double mass = 0.0;
         Eigen::Vector3d momentum = Eigen::Vector3d::Zero();
         Eigen::Vector3d velocity = Eigen::Vector3d::Zero();
     };
 
-    // Build solver state, size the grid, and seed the initial particles.
+    /// @brief Builds the simulation, sizes the grid, and seeds the initial particle set.
     explicit Simulation(SimulationConfig config);
 
-    // Advance the solver by `steps` substeps.
+    /// @brief Advances the simulation by the requested number of substeps.
     void advance(int steps);
-    // Render the summary line used by logs and baseline manifests.
+    /// @brief Formats the summary line used by logs and regression baselines.
     std::string build_summary() const;
-    // Return the grid cell estimate derived from the configured domain and dx.
+    /// @brief Estimates the number of grid cells implied by the scene bounds and `dx`.
     int estimated_grid_cells() const;
-    // Aggregate runtime stats for tests and exports.
+    /// @brief Computes aggregate runtime statistics over the current particle set.
     SimulationStats stats() const;
-    // Return the current substep index.
+    /// @brief Returns the current substep index since the simulation started.
     int current_step() const;
-    // Export particles as an ASCII PLY file.
+    /// @brief Exports the current particles as an ASCII PLY file.
     void write_particle_ply(const std::filesystem::path &path) const;
 
 private:
-    // Particle seeding and emitter helpers.
+    /// @brief Seeds the initial particle set from the scene configuration.
     void initialize_particles();
+    /// @brief Appends randomly sampled box particles to the simulation state.
     void append_seed_particles(
         const Eigen::Vector3d &box_min,
         const Eigen::Vector3d &box_max,
@@ -72,6 +74,7 @@ private:
         const Eigen::Vector3d &initial_velocity,
         double particle_mass,
         double particle_volume);
+    /// @brief Appends randomly sampled cylindrical particles to the simulation state.
     void append_cylindrical_particles(
         const Eigen::Vector3d &center,
         double radius,
@@ -81,6 +84,7 @@ private:
         const Eigen::Vector3d &initial_velocity,
         double particle_mass,
         double particle_volume);
+    /// @brief Appends layered cylindrical particles with controllable jitter.
     void append_stratified_cylindrical_particles(
         const Eigen::Vector3d &center,
         double radius,
@@ -91,6 +95,7 @@ private:
         const Eigen::Vector3d &initial_velocity,
         double particle_mass,
         double particle_volume);
+    /// @brief Appends regularly spaced box particles for PPC-based seeding.
     void append_regular_seed_particles(
         const Eigen::Vector3d &box_min,
         const Eigen::Vector3d &box_max,
@@ -99,12 +104,17 @@ private:
         const Eigen::Vector3d &initial_velocity,
         double particle_mass,
         double particle_volume);
-    // Solver internals.
+    /// @brief Emits additional particles for scenes with a runtime emitter.
     void emit_particles();
+    /// @brief Clears the sparse grid before the next P2G phase.
     void reset_grid();
+    /// @brief Executes one full MPM substep.
     void substep();
+    /// @brief Packs a 3D grid coordinate into the sparse-grid hash key.
     int grid_index(int i, int j, int k) const;
+    /// @brief Unpacks a sparse-grid hash key back into a 3D grid coordinate.
     Eigen::Vector3i unpack_grid_index(int flat_index) const;
+    /// @brief Returns whether a grid coordinate lies inside the simulation domain grid.
     bool inside_grid(int i, int j, int k) const;
 
     SimulationConfig config_;

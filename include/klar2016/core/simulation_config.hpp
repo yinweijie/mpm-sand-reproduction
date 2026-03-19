@@ -7,14 +7,14 @@
 
 namespace klar2016 {
 
-// Basic 3D vector used by JSON scene config fields.
+/// @brief Simple 3D vector used for JSON scene configuration values.
 struct Vec3d {
     double x = 0.0;
     double y = 0.0;
     double z = 0.0;
 };
 
-// Material parameters for the Drucker-Prager sand model.
+/// @brief Material parameters for the Drucker-Prager sand constitutive model.
 struct MaterialConfig {
     double density = 2200.0;
     double youngs_modulus = 3.537e5;
@@ -26,7 +26,7 @@ struct MaterialConfig {
     double hardening_h3 = 10.0;
 };
 
-// Global solver settings that control resolution and time stepping.
+/// @brief Global solver controls such as resolution and timestep limits.
 struct SolverConfig {
     double dx = 0.0025;
     double dt_max = 1.0e-4;
@@ -35,7 +35,7 @@ struct SolverConfig {
     bool explicit_only = true;
 };
 
-// A single plane collider, optionally bounded to a scene region.
+/// @brief Plane collider settings, optionally restricted to a bounded region.
 struct PlaneColliderConfig {
     Vec3d point{0.0, 0.0, 0.0};
     Vec3d normal{0.0, 1.0, 0.0};
@@ -45,7 +45,7 @@ struct PlaneColliderConfig {
     Vec3d bounds_max{0.0, 0.0, 0.0};
 };
 
-// Procedural hourglass shell used to generate the classic demo boundary.
+/// @brief Procedural hourglass shell settings used to synthesize boundary colliders.
 struct HourglassShellConfig {
     bool enabled = false;
     Vec3d waist_center{0.5, 0.5, 0.5};
@@ -60,7 +60,7 @@ struct HourglassShellConfig {
     double bottom_cap_friction_coefficient = 0.85;
 };
 
-// Procedural cylindrical shell used by the pile_lab scene.
+/// @brief Procedural cylindrical shell settings used by pile-style scenes.
 struct CylinderShellConfig {
     bool enabled = false;
     Vec3d center{0.5, 0.5, 0.5};
@@ -71,7 +71,7 @@ struct CylinderShellConfig {
     int segments = 24;
 };
 
-// Scene-level settings: domain, emitters, colliders, and simulation horizon.
+/// @brief Scene-level settings including domain bounds, seeding, and colliders.
 struct SceneConfig {
     std::string name = "hourglass";
     Vec3d domain_min{0.0, 0.0, 0.0};
@@ -91,7 +91,7 @@ struct SceneConfig {
     std::vector<PlaneColliderConfig> colliders;
 };
 
-// Optional particle emitter used by preview scenes and baselines.
+/// @brief Runtime emitter settings for scenes that inject particles over time.
 struct EmitterConfig {
     bool enabled = false;
     std::string shape = "box";
@@ -107,7 +107,7 @@ struct EmitterConfig {
     int max_particles = 0;
 };
 
-// PLY export settings for preview / regression output.
+/// @brief PLY export controls for preview and regression output.
 struct ExportConfig {
     bool export_ply = false;
     std::string output_directory = "outputs/.test";
@@ -115,7 +115,7 @@ struct ExportConfig {
     bool export_initial_frame = true;
 };
 
-// Root configuration object loaded from scene JSON.
+/// @brief Root scene configuration loaded from a JSON file.
 struct SimulationConfig {
     SceneConfig scene;
     MaterialConfig material;
@@ -124,8 +124,11 @@ struct SimulationConfig {
     ExportConfig export_settings;
 };
 
+/// @brief Loads a simulation configuration from a scene JSON file.
 SimulationConfig load_config(const std::filesystem::path &path);
+/// @brief Produces a compact one-line description of the loaded configuration.
 std::string describe(const SimulationConfig &config);
+/// @brief Formats a labeled `Vec3d` for console logging.
 std::string describe(std::string_view label, const Vec3d &value);
 
 }  // namespace klar2016

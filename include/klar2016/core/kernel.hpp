@@ -5,12 +5,14 @@
 
 namespace klar2016 {
 
+/// @brief Stores the 4-node cubic B-spline stencil for one coordinate axis.
 struct CubicAxisStencil {
     std::array<int, 4> nodes{};
     std::array<double, 4> weights{};
     std::array<double, 4> gradients{};
 };
 
+/// @brief Evaluates the cubic B-spline interpolation weight for a grid-space offset.
 inline double cubic_bspline_weight(double distance_in_grid_units) {
     const double x = std::abs(distance_in_grid_units);
     if (x < 1.0) {
@@ -23,6 +25,7 @@ inline double cubic_bspline_weight(double distance_in_grid_units) {
     return 0.0;
 }
 
+/// @brief Evaluates the spatial gradient of the cubic B-spline weight in world units.
 inline double cubic_bspline_gradient(double distance_in_grid_units, double inv_dx) {
     const double x = distance_in_grid_units;
     const double abs_x = std::abs(x);
@@ -39,6 +42,7 @@ inline double cubic_bspline_gradient(double distance_in_grid_units, double inv_d
     return derivative * inv_dx;
 }
 
+/// @brief Builds the 1D interpolation stencil used by P2G and G2P transfers.
 inline CubicAxisStencil build_cubic_axis_stencil(double particle_coordinate_in_grid_units, double inv_dx) {
     CubicAxisStencil stencil;
     const int center = static_cast<int>(std::floor(particle_coordinate_in_grid_units));

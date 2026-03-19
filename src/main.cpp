@@ -13,6 +13,7 @@
 
 namespace {
 
+// Read the scene path from the CLI, falling back to the default hourglass scene.
 std::filesystem::path parse_scene_path(int argc, char **argv) {
     std::filesystem::path scene = "scenes/hourglass.json";
 
@@ -26,6 +27,7 @@ std::filesystem::path parse_scene_path(int argc, char **argv) {
     return scene;
 }
 
+// Read the preview step count override from the CLI.
 int parse_preview_steps(int argc, char **argv, int fallback_steps) {
     for (int i = 1; i < argc; ++i) {
         const std::string_view arg(argv[i]);
@@ -37,6 +39,7 @@ int parse_preview_steps(int argc, char **argv, int fallback_steps) {
     return fallback_steps;
 }
 
+// Read an optional friction-angle override from the CLI.
 std::optional<double> parse_friction_angle_override(int argc, char **argv) {
     for (int i = 1; i < argc; ++i) {
         const std::string_view arg(argv[i]);
@@ -48,6 +51,7 @@ std::optional<double> parse_friction_angle_override(int argc, char **argv) {
     return std::nullopt;
 }
 
+// Parse a comma-separated friction-angle sweep from the CLI.
 std::vector<double> parse_friction_angle_sweep(int argc, char **argv) {
     for (int i = 1; i < argc; ++i) {
         const std::string_view arg(argv[i]);
@@ -67,6 +71,7 @@ std::vector<double> parse_friction_angle_sweep(int argc, char **argv) {
     return {};
 }
 
+// Decide whether PLY export is enabled after considering CLI overrides.
 bool parse_export_enabled(int argc, char **argv, bool fallback_enabled) {
     bool export_enabled = fallback_enabled;
 
@@ -83,6 +88,7 @@ bool parse_export_enabled(int argc, char **argv, bool fallback_enabled) {
     return export_enabled;
 }
 
+// Read an optional output directory override from the CLI.
 std::optional<std::filesystem::path> parse_output_directory(int argc, char **argv) {
     for (int i = 1; i < argc; ++i) {
         const std::string_view arg(argv[i]);
@@ -94,22 +100,26 @@ std::optional<std::filesystem::path> parse_output_directory(int argc, char **arg
     return std::nullopt;
 }
 
+// Build the default export directory for a scene when none is provided on the CLI.
 std::filesystem::path default_output_directory(const klar2016::SimulationConfig &config) {
     return std::filesystem::path(config.export_settings.output_directory) / config.scene.name;
 }
 
+// Build the output path for one exported frame.
 std::filesystem::path frame_path(const std::filesystem::path &output_directory, int step) {
     std::ostringstream filename;
     filename << "frame_" << std::setw(5) << std::setfill('0') << step << ".ply";
     return output_directory / filename.str();
 }
 
+// Turn a friction angle into a directory-friendly suffix for sweep runs.
 std::string angle_tag(double friction_angle_degrees) {
     std::ostringstream out;
     out << "friction_" << std::fixed << std::setprecision(1) << friction_angle_degrees;
     return out.str();
 }
 
+// Run one preview simulation, optionally exporting frames along the way.
 void run_preview(
     const klar2016::SimulationConfig &config,
     int preview_steps,
@@ -153,6 +163,7 @@ void run_preview(
 
 }  // namespace
 
+// Parse CLI arguments, load the scene, and run either one preview or a friction sweep.
 int main(int argc, char **argv) {
     try {
         const auto scene_path = parse_scene_path(argc, argv);
